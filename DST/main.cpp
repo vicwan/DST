@@ -11,12 +11,34 @@
 #include <iostream>
 #include "Vector.hpp"
 
+void VectorTest();
+
 int main(int argc, const char * argv[]) {
     
     
-    Vector<int> v = Vector<int>();
-    v.isEmpty();
+    VectorTest();
     
     
     return 0;
+}
+
+void VectorTest()
+{
+    Vector<int> v = Vector<int>();
+    v.append(1);
+    v.append(2);
+    v.append(3);
+    v.append(2);
+    v.insert(1, 5);
+    v.insert(4, 9);
+    v.append(32);
+    v.printVector();
+    
+    v.removeAtIndex(2);
+    v.printVector();
+    v.remove(2, 4);
+    v.printVector();
+    v.removeAtIndex(3);
+    v.printVector();
+    v.find(5);
 }
