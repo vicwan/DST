@@ -39,6 +39,7 @@ protected:
 	
 	bool bubble_scan_once(Rank lo, Rank hi);
 	Rank bubble_scan_once_fast(Rank lo, Rank hi);
+	void merge(Rank lo, Rank mi, Rank hi);
     
 public:
     
@@ -58,6 +59,8 @@ public:
     {
         delete [] _elem;
     }
+	
+	
 	//向量窥视
 	const Rank size();	//在返回值前面加 const，说明该返回值只能被读取，不能被修改
     bool isEmpty();
@@ -84,6 +87,7 @@ public:
 	//排序
 	void sort_bubble(Rank lo, Rank hi);
 	void sort_bubble_fast(Rank lo, Rank hi);
+	void sort_merge(Rank lo, Rank hi);
 };
 
 
@@ -197,6 +201,7 @@ Rank Vector<T>::find(const T &e) const
 
 
 #pragma mark - Sort
+#pragma mark Bubble sort
 template <typename T>
 void Vector<T>::sort_bubble(Rank lo, Rank hi)
 {
@@ -239,6 +244,52 @@ Rank Vector<T>::bubble_scan_once_fast(Rank lo, Rank hi)
 		}
 	}
 	return last;
+}
+
+#pragma mark Merge sort
+template <typename T>
+void Vector<T>::sort_merge(Rank lo, Rank hi)
+{
+	if (lo == hi - 1)
+	{
+		return;
+	}
+	Rank mi = (lo + hi) / 2;
+	
+	sort_merge(lo, mi);
+	sort_merge(mi, hi);
+	merge(lo, mi, hi);
+}
+
+template <typename T>
+void Vector<T>::merge(Rank lo, Rank mi, Rank hi)
+{
+	Rank lb = hi - mi;
+	//申请一块空间, 后半部分复制出去
+	T* c = new T[lb];
+	
+	for(Rank i = 0; i < lb; i++)
+	{
+		c[i] = _elem[mi + i];
+	}
+	//从后向前比较 a，c, 创建 3 个索引分别指向 a,b,c 的 hot index
+	Rank hotA = mi - 1;
+	Rank hotB = hi - 1;
+	Rank hotC = lb - 1;
+	
+	while(hotA < hotB)
+	{
+		//添加 c
+		if (c[hotC] >= _elem[hotA] || hotA < lo)
+		{
+			_elem[hotB--] = c[hotC--];
+		}
+		//添加 a
+		if (c[hotC] < _elem[hotA] || hotC < 0)
+		{
+			_elem[hotB--] = _elem[hotA--];
+		}
+	}
 }
 
 /******************* Private ********************/

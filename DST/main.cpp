@@ -42,6 +42,7 @@ void VectorTest()
     v.printVector();
     v.find(2);
 //    v.sort_bubble(0, 6);
-    v.sort_bubble_fast(0, 6);
+//    v.sort_bubble_fast(0, 6);
+    v.sort_merge(0, 6);
     v.printVector();
 }
