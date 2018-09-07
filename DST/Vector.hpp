@@ -10,8 +10,17 @@
 #define Vector_hpp
 
 #include <iostream>
+#include "Utitlities.hpp"
 
 #define DEFAULT_CAPACITY 3
+
+#define vector_invalid_args_assert\
+		if (lo < 0 || hi > _size || lo >= hi)\
+			throw "Invalid argument(s)";
+
+#define vector_single_arg_assert\
+		if (r < 0 || r > _size)\
+			throw "Invalid argument";
 
 typedef int Rank;
 
@@ -27,6 +36,9 @@ protected:
 	
     void shrink();
     void expand();
+	
+	bool bubble_scan_once(Rank lo, Rank hi);
+	Rank bubble_scan_once_fast(Rank lo, Rank hi);
     
 public:
     
@@ -70,7 +82,8 @@ public:
 	Rank search_fibonacci(T const& e) const;
 	
 	//排序
-	
+	void sort_bubble(Rank lo, Rank hi);
+	void sort_bubble_fast(Rank lo, Rank hi);
 };
 
 
@@ -114,8 +127,7 @@ void Vector<T>::printVector()
 template <typename T>
 void Vector<T>::insert(Rank r, T const& e)      //size=5, 01234, r=5, hot=4
 {
-    if (r < 0 || r > _size)
-        return;
+    vector_single_arg_assert
     
     expand();
     
@@ -140,9 +152,7 @@ template <typename T>
 void Vector<T>::remove(Rank lo, Rank hi)
 {
 	//异常判断
-	if (lo >= hi) throw "Rank lo should not be equal to or greater than rank hi.";
-	if (lo < 0) throw "Rank lo should not be less than 0.";
-	if (hi > _size) throw "Rank hi should not be greater than the size of vector.";
+	vector_invalid_args_assert
 	
 	//后面的元素直接前移覆盖
 	while (hi < _size)
@@ -157,6 +167,7 @@ void Vector<T>::remove(Rank lo, Rank hi)
 template <typename T>
 void Vector<T>::removeAtIndex(Rank r)
 {
+	vector_single_arg_assert
 	remove(r, r + 1);
 }
 
@@ -165,8 +176,7 @@ void Vector<T>::removeAtIndex(Rank r)
 template <typename T>
 Rank Vector<T>::find(const T &e, Rank lo, Rank hi) const
 {
-	if (lo < 0 || hi > _size)
-		throw "Invalid argument(s)";
+	vector_invalid_args_assert
 	
 	while (hi > lo) {
 		if (_elem[hi - 1] == e)
@@ -183,6 +193,52 @@ template <typename T>
 Rank Vector<T>::find(const T &e) const
 {
 	return find(e, 0, _size);
+}
+
+
+#pragma mark - Sort
+template <typename T>
+void Vector<T>::sort_bubble(Rank lo, Rank hi)
+{
+	vector_invalid_args_assert
+	while (!bubble_scan_once(lo, hi))
+		hi --;
+}
+
+template <typename T>
+bool Vector<T>::bubble_scan_once(Rank lo, Rank hi)
+{
+	bool isSorted = true;
+	while (++lo < hi) {
+		
+		if (_elem[lo - 1] > _elem[lo])
+		{
+			util_swap(_elem[lo - 1], _elem[lo]);
+			isSorted = false;
+		}
+	}
+	return isSorted;
+}
+
+template <typename T>
+void Vector<T>::sort_bubble_fast(Rank lo, Rank hi)
+{
+	vector_invalid_args_assert
+	while (lo < (hi = bubble_scan_once_fast(lo, hi)));
+}
+
+template <typename T>
+Rank Vector<T>::bubble_scan_once_fast(Rank lo, Rank hi)
+{
+	Rank last = lo;
+	while (++lo < hi) {
+		if (_elem[lo - 1] > _elem[lo])
+		{
+			util_swap(_elem[lo - 1], _elem[lo]);
+			last = lo;
+		}
+	}
+	return last;
 }
 
 /******************* Private ********************/

@@ -26,6 +26,7 @@
 		3D59C81A213FC3EF00DE8075 /* DST */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = DST; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D59C81D213FC3EF00DE8075 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		3D59C825213FC40400DE8075 /* Vector.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Vector.hpp; sourceTree = "<group>"; tabWidth = 4; usesTabs = 1; };
+		3D9765322142443D00285685 /* Utitlities.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Utitlities.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +60,7 @@
 			isa = PBXGroup;
 			children = (
 				3D59C81D213FC3EF00DE8075 /* main.cpp */,
+				3D9765322142443D00285685 /* Utitlities.hpp */,
 				3D59C825213FC40400DE8075 /* Vector.hpp */,
 			);
 			path = DST;

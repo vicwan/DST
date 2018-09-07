@@ -36,9 +36,12 @@ void VectorTest()
     
     v.removeAtIndex(2);
     v.printVector();
-    v.remove(2, 4);
+//    v.remove(2, 4);
     v.printVector();
-    v.removeAtIndex(3);
+//    v.removeAtIndex(3);
     v.printVector();
-    v.find(5);
+    v.find(2);
+//    v.sort_bubble(0, 6);
+    v.sort_bubble_fast(0, 6);
+    v.printVector();
 }
