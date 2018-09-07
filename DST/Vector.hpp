@@ -117,7 +117,7 @@ void Vector<T>::printVector()
 	}
 	
 	printf("Size: %d  Capacity: %d\n", _size, _capacity);
-	printf("元素: ");
+	printf("元素:\t");
 	for (Rank i = 0; i < _size; i++)
 	{
 		printf("%d\t", _elem[i]);
@@ -250,6 +250,7 @@ Rank Vector<T>::bubble_scan_once_fast(Rank lo, Rank hi)
 template <typename T>
 void Vector<T>::sort_merge(Rank lo, Rank hi)
 {
+	vector_invalid_args_assert
 	if (lo == hi - 1)
 	{
 		return;
