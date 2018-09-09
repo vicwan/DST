@@ -81,8 +81,9 @@ public:
 	 */
 	Rank find(T const& e) const;	//整体查找
 	Rank find(T const& e, Rank lo, Rank hi) const;	//无序向量的顺序查找：返回最后一个元素e的位置；失败时，返回lo - 1
-	Rank search_binary(T const& e) const;
-	Rank search_fibonacci(T const& e) const;
+	Rank search_binary_0(T const& e, Rank lo, Rank hi) const;	//返回不大于e的秩最大者
+	Rank search_binary_1(T const& e, Rank lo, Rank hi) const;	//有多个命中元素时，不能保证返回秩最大者；查找失败时，简单地返回-1，而不能指示失败的位置
+//	Rank search_fibonacci(T const& e, Rank lo, Rank hi) const;
 	
 	//排序
 	void sort_bubble(Rank lo, Rank hi);
@@ -199,6 +200,48 @@ Rank Vector<T>::find(const T &e) const
 	return find(e, 0, _size);
 }
 
+template <typename T>
+Rank Vector<T>::search_binary_0(const T &e, Rank lo, Rank hi) const
+{
+	vector_invalid_args_assert
+	
+	while (lo < hi)
+	{
+		Rank mi = (lo + hi) >> 1;
+		
+		if (e < _elem[mi])
+		{
+			hi = mi;
+		}
+		else
+		{
+			lo = mi + 1;
+		}
+	}
+	return --lo;
+}
+
+template <typename T>
+Rank Vector<T>::search_binary_1(const T &e, Rank lo, Rank hi) const
+{
+	vector_invalid_args_assert
+	
+	while (lo < hi - 1)
+	{
+		Rank mi = (lo + hi) >> 1;
+		if (e < _elem[mi])
+		{
+			hi = mi;
+		}
+		else
+		{
+			lo = mi;
+		}
+	}
+	if (e == _elem[lo])
+		return lo;
+	return -1;
+}
 
 #pragma mark - Sort
 #pragma mark Bubble sort

@@ -23,6 +23,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0D28AA252145690200E6319E /* List.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = List.hpp; sourceTree = "<group>"; };
+		0D28AA282145691600E6319E /* ListTests.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ListTests.hpp; sourceTree = "<group>"; };
 		0DA6930C21428E82008FE41A /* VectorTests.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VectorTests.hpp; sourceTree = "<group>"; };
 		3D59C81A213FC3EF00DE8075 /* DST */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = DST; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D59C81D213FC3EF00DE8075 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -45,6 +47,7 @@
 			isa = PBXGroup;
 			children = (
 				0DA6930C21428E82008FE41A /* VectorTests.hpp */,
+				0D28AA282145691600E6319E /* ListTests.hpp */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -71,6 +74,7 @@
 				3D59C81D213FC3EF00DE8075 /* main.cpp */,
 				3D9765322142443D00285685 /* Utitlities.hpp */,
 				3D59C825213FC40400DE8075 /* Vector.hpp */,
+				0D28AA252145690200E6319E /* List.hpp */,
 				0DA6930A21428E57008FE41A /* Tests */,
 			);
 			path = DST;

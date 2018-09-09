@@ -10,13 +10,15 @@
 
 #include <iostream>
 #include "Tests/VectorTests.hpp"
+#include "Tests/ListTests.hpp"
 
 void VectorTest();
 
 int main(int argc, const char * argv[]) {
     
     
-    VectorTest();
+//    VectorTest();
+    ListTest();
     
     
     return 0;

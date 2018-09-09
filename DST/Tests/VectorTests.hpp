@@ -20,6 +20,7 @@ void VectorTest()
     v.append(2);
     v.insert(1, 5);
     v.insert(4, 9);
+    v.append(5);
     v.append(32);
     v.printVector();
     
@@ -32,8 +33,10 @@ void VectorTest()
     v.find(2);
     //    v.sort_bubble(0, 6);
     //    v.sort_bubble_fast(0, 6);
-    v.sort_merge(0, 6);
+    v.sort_merge(0, v.size());
     v.printVector();
+    Rank idx = v.search_binary_1(50, 0, v.size());
+    printf("###%d\n", idx);
 }
 
 #endif /* VectorTests_hpp */
