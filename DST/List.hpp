@@ -94,9 +94,14 @@ public:
     //remove
     T removeAtIndex(Rank r);
     void remove(Rank lo, Rank hi);
+    void removeAll();
     
     //find & search
     ListNodePosi(T) nodeAtIndex(Rank r) const;
+    
+    //sort
+    void sort_insertion() const;
+    void sort_selection() const;
 };
 
 #pragma mark - Inspection
@@ -163,7 +168,24 @@ void List<T>::append(const T &e)
 template <typename T>
 void List<T>::remove(Rank lo, Rank hi)
 {
+    if (lo < 0 || hi > _size || hi <= lo)
+        throw "Invalid arguments!";
     
+    ListNodePosi(T) nodeLo = nodeAtIndex(lo);
+    ListNodePosi(T) nodeHi_1 = nodeAtIndex(hi-1);
+    
+    nodeLo->_pred->_succ = nodeHi_1->_succ;
+    nodeHi_1->_succ->_pred = nodeLo->_pred;
+    nodeHi_1->_succ = nullptr;  //为了稍后遍历到这个节点能够停止遍历
+    
+    ListNodePosi(T) tmp = nullptr;
+    while (nodeLo != nullptr)
+    {
+        tmp = nodeLo;
+        nodeLo = nodeLo->_succ;
+        delete tmp;
+        _size --;
+    }
 }
 
 template <typename T>
@@ -173,16 +195,15 @@ T List<T>::removeAtIndex(Rank r)
     
     ListNodePosi(T) node = nodeAtIndex(r);
     T ret = node->_data;
-    
-    node->_pred->_succ = node->_succ;
-    node->_succ->_pred = node->_pred;
-    node->_pred = nullptr;
-    node->_succ = nullptr;
-    
-    _size--;
-    delete node;
+    remove(r, r + 1);
     
     return ret;
+}
+
+template <typename T>
+void List<T>::removeAll()
+{
+    remove(0, _size);
 }
 
 #pragma mark - Find & Search
@@ -199,6 +220,29 @@ ListNodePosi(T) List<T>::nodeAtIndex(Rank r) const
         node = node->_succ;
     }
     return node;
+}
+
+
+#pragma mark - Sort
+
+template <typename T>
+void List<T>::sort_insertion() const    //从剩下的元素中取出一个，插入序列
+{
+    /*
+     （从大向小插）
+     从后向前取，插入到严格小于该元素的元素之后
+     或者
+     从前向后取，插入到第一个不大于该元素的元素之后
+     这样，可以保证排序的稳定性
+     */
+    
+    
+}
+
+template <typename T>
+void List<T>::sort_selection() const    //从剩下的元素中选择出最大的一个，放入序列
+{
+    // 从后向前取元素，保证排序的稳定性
 }
 
 
