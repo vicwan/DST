@@ -60,6 +60,10 @@ public:
         delete [] _elem;
     }
 	
+	T& operator [] (Rank r)
+	{
+		return _elem[r];
+	}
 	
 	//向量窥视
 	const Rank size();	//在返回值前面加 const，说明该返回值只能被读取，不能被修改

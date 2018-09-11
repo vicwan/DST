@@ -11,15 +11,18 @@
 #include <iostream>
 #include "Tests/VectorTests.hpp"
 #include "Tests/ListTests.hpp"
+#include "Tests/StackTests.hpp"
+#include "Tests/QueueTests.hpp"
 
 void VectorTest();
 
 int main(int argc, const char * argv[]) {
     
     
-//    VectorTest();
-    ListTest();
-    
+    VectorTest();
+//    ListTest();
+//    StackTest();
+    QueueTest();
     
     return 0;
 }

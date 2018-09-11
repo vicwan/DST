@@ -37,6 +37,9 @@ void VectorTest()
     v.printVector();
     Rank idx = v.search_binary_1(50, 0, v.size());
     printf("###%d\n", idx);
+    
+    int val = v[5];
+    printf("---%d\n", val);
 }
 
 #endif /* VectorTests_hpp */

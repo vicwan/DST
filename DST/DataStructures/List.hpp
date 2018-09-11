@@ -93,6 +93,7 @@ public:
     void insertAtIndex(const T& e, Rank r);
     void append(const T& e);
     void insertAsFirst(const T& e);
+    void insertAfter(ListNodePosi(T) n);
     
     //remove
     T removeAtIndex(Rank r);
@@ -182,6 +183,12 @@ template <typename T>
 void List<T>::append(const T &e)
 {
     insertAtIndex(e, _size);
+}
+
+template <typename T>
+void List<T>::insertAfter(ListNode<T> *n)
+{
+    
 }
 
 #pragma mark - Remove
