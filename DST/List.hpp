@@ -69,6 +69,7 @@ protected:
     ListNodePosi(T) _header;
     ListNodePosi(T) _trailer;
     
+    void insertion(List<T>** l, ListNodePosi(T) nodeToInsert);
     
 public:
     List()
@@ -82,9 +83,11 @@ public:
     }
     
     //链表窥视
-    int size();
-    bool hasCycle();
-    void printList();
+    int size() const;
+    bool hasCycle() const;
+    void printList() const;
+    ListNodePosi(T) first();
+    ListNodePosi(T) last();
     
     //insert
     void insertAtIndex(const T& e, Rank r);
@@ -100,20 +103,20 @@ public:
     ListNodePosi(T) nodeAtIndex(Rank r) const;
     
     //sort
-    void sort_insertion() const;
-    void sort_selection() const;
+    void sort_insertion(Rank lo, Rank hi);
+    void sort_selection(Rank lo, Rank hi);
 };
 
 #pragma mark - Inspection
 
 template <typename T>
-int List<T>::size()
+int List<T>::size() const
 {
     return _size;
 }
 
 template <typename T>
-void List<T>::printList()
+void List<T>::printList() const
 {
     if (_size < 1)
     {
@@ -131,6 +134,24 @@ void List<T>::printList()
         }
         std::cout << std::endl;
     }
+}
+
+template <typename T>
+ListNodePosi(T) List<T>::first()
+{
+    if (_size < 1)
+        return nullptr;
+    
+    return _header->_succ;
+}
+
+template <typename T>
+ListNodePosi(T) List<T>::last()
+{
+    if (_size < 1)
+        return nullptr;
+    
+    return _trailer->_pred;
 }
 
 #pragma mark - Add
@@ -215,9 +236,20 @@ ListNodePosi(T) List<T>::nodeAtIndex(Rank r) const
         return nullptr;
     
     ListNodePosi(T) node = _header->_succ;
-    for (int i = 0; i < r; i++)
+    
+    if (r < (_size >> 1))
     {
-        node = node->_succ;
+        for (int i = 0; i < r; i++)
+        {
+            node = node->_succ;
+        }
+    }
+    else
+    {
+        for (int i = _size - 1; i < (_size - r); i++)
+        {
+            node = node->_pred;
+        }
     }
     return node;
 }
@@ -225,8 +257,10 @@ ListNodePosi(T) List<T>::nodeAtIndex(Rank r) const
 
 #pragma mark - Sort
 
+
+
 template <typename T>
-void List<T>::sort_insertion() const    //从剩下的元素中取出一个，插入序列
+void List<T>::sort_insertion(Rank lo, Rank hi)    //从剩下的元素中取出一个，插入序列
 {
     /*
      （从大向小插）
@@ -234,13 +268,27 @@ void List<T>::sort_insertion() const    //从剩下的元素中取出一个，�
      或者
      从前向后取，插入到第一个不大于该元素的元素之后
      这样，可以保证排序的稳定性
+     
+     这里取后者。原因是：在极端情况下，也就是所有元素的值全都相等的情况下，可以在新链表中少遍历 Ο(n²) 次
      */
+    
+    ListNodePosi(T) oldNode = nodeAtIndex(lo);
+    
+    //先把 lo-hi 全断了，再一个一个接上，用一个临时链表
+    List<T> *tmpList = new List<T>();
+    
+}
+
+template <typename T>
+void List<T>::insertion(List<T> **l, ListNode<T> *nodeToInsert)
+{
+    List *list = *l;
     
     
 }
 
 template <typename T>
-void List<T>::sort_selection() const    //从剩下的元素中选择出最大的一个，放入序列
+void List<T>::sort_selection(Rank lo, Rank hi)    //从剩下的元素中选择出最大的一个，放入序列
 {
     // 从后向前取元素，保证排序的稳定性
 }
